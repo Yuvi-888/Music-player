@@ -1,0 +1,295 @@
+// HTML FILE
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viber.in</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="main_body">
+            <audio class='track' src="audio/audio1.mp3"></audio>
+            <h2 id="song_title">Power</h2>
+            <h2 id="artist_name">DVRST</h2>
+            <img id='album_cover' src="images/albumcover1.jpg"  alt="">
+            <img id='gif' src="images/soundwave.gif" alt="">
+        </div>
+
+        <div class="control_bar">
+            <input id='progressbar' type="range">
+            <div class="control_icons">
+                <i id='previous_icon' class="fa-sharp fa-solid fa-backward"></i>
+                <i id='play_icon' class="fa-sharp fa-solid fa-circle-play"></i>
+                <i id='next_icon' class="fa-sharp fa-solid fa-forward"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://kit.fontawesome.com/ec03c223ab.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
+
+
+
+// CSS FILE
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.container {
+    width: 30%;
+    height: 89%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 35%;
+    top: 6%;
+    border-radius: 30px;
+    background: linear-gradient(to bottom, black, #ff0078);
+    text-align: center;
+}
+
+
+#album_cover {
+    width: 200px;
+    height: 200px;
+    border: 2px solid;
+    border-radius: 50%;
+    position: absolute;
+    top: 32%;
+    left:28% ;
+
+}
+
+.anime{animation: rotate 3s linear infinite; }
+
+@keyframes rotate{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+#song_title {
+    /* display: flex;
+    justify-content: center;
+    text-align: center;
+    position: fixed;
+    top: 18%;
+    left: 47%;
+    font-size: 30px; */
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 15%;
+    left: 40%;
+    font-size: 30px;
+
+}
+
+#artist_name {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 24%;
+    left: 44%;
+    font-size: 20px;
+    
+}
+
+.control_bar {
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: absolute;
+    bottom: 0%;
+    border-bottom-right-radius: 27px;
+    border-bottom-left-radius: 27px;
+    cursor: pointer;
+    background-color: black;
+    border-top: 2px solid;
+}
+
+#progressbar {
+    -webkit-appearance: none;
+    margin-right: 15px;
+    width: 270px;
+    height: 8px;
+    background: #ff0078;
+    border-radius: 5px;
+    position: relative;
+    top: 18%;
+    left: 8px;
+    background-size: 70% 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#progressbar ::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border-radius: 50%;
+    background: #ff0078;
+}
+
+#progressbar ::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: #ff0078;
+}
+
+.control_icons {
+    position: absolute;
+    bottom: 20px;
+}
+
+#play_icon {
+    font-size: 43px;
+    margin: 0px 15px;
+    position: relative;
+    
+}
+
+#previous_icon {
+    font-size: 27px;
+    position: relative;
+    bottom: 4px;
+}
+
+#next_icon {
+    font-size: 27px;
+    position: relative;
+    bottom: 4px;
+}
+
+#gif{width: 100px;
+position: absolute;
+bottom: 26%;
+left: 39%;
+transition: opacity 0.3s ease-in;}
+
+
+
+// JAVASCRIPT FILE
+
+const play_pause_button=document.querySelector('#play_icon')
+let audio=document.querySelector('.track')
+let progressbar=document.querySelector('#progressbar')
+let gif=document.querySelector('#gif')
+let album_cover=document.querySelector('#album_cover')
+let song_title=document.querySelector('#song_title')
+let artist_name=document.querySelector('#artist_name')
+let previous_icon=document.querySelector('#previous_icon')
+let next_icon=document.querySelector('#next_icon')
+let anime=document.querySelector('.anime')
+gif.style.opacity=0
+
+let songs_arr=[{
+    song:'Power',
+    artist:'DVRST',
+    imgsource:'images/albumcover1.jpg',
+    track:'audio/audio1.mp3'
+   },
+    
+    {song:'Sub Urban',
+    artist:'Beta House',
+    imgsource:'images/albumcover2.jpg',
+    track:'audio/audio2.mp3'
+  }, 
+
+  {song:'Your Name',
+  artist:'DVRST',
+  imgsource:'images/albumcover3.jpg',
+  track:'audio/audio3.mp3'
+  }, 
+
+  {song:'Passion',
+  artist:'Phonk',
+  imgsource:'images/albumcover4.jpg',
+  track:'audio/audio4.mp3'
+}, 
+
+
+{song:'Rocket',
+artist:'Phonk',
+imgsource:'images/albumcover5.jpg',
+track:'audio/audio5.mp3'
+} 
+]
+
+function loadsongs(songs_arr){
+    song_title.innerHTML=songs_arr.song
+    artist_name.innerHTML=songs_arr.artist
+    album_cover.src=songs_arr.imgsource
+    audio.src=songs_arr.track
+}
+song_index=0
+
+next_song=()=>{
+song_index=(song_index + 1) % songs_arr.length
+loadsongs(songs_arr[song_index])
+gif.style.opacity=1
+progress()
+play_pause_button.classList.remove('fa-circle-play')
+play_pause_button.classList.add('fa-circle-pause')
+album_cover.classList.add('anime')
+audio.play()
+}
+
+prev_song=()=>{
+    song_index=(song_index - 1 + songs_arr.length) % songs_arr.length
+loadsongs(songs_arr[song_index])
+gif.style.opacity=1
+progress()
+play_pause_button.classList.remove('fa-circle-play')
+play_pause_button.classList.add('fa-circle-pause')
+album_cover.classList.add('anime')
+audio.play()
+}
+
+next_icon.addEventListener('click',next_song)
+previous_icon.addEventListener('click',next_song)
+
+play_pause_button.addEventListener('click',()=>{
+    if(audio.paused){
+        audio.play()
+        play_pause_button.classList.remove('fa-circle-play')
+        play_pause_button.classList.add('fa-circle-pause')
+        album_cover.classList.add('anime')
+        gif.style.opacity=1
+        progress()
+    }
+    else{
+        audio.pause()
+        play_pause_button.classList.remove('fa-circle-pause')
+        play_pause_button.classList.add('fa-circle-play')
+        album_cover.classList.remove('anime')
+        gif.style.opacity=0
+        progress()
+    }
+})
+
+function progress(){
+  setInterval(()=>{
+    progressbar.max=audio.duration
+    progressbar.value=audio.currentTime
+  },500)
+}
+
+progressbar.onchange=()=>{
+    audio.currentTime=progressbar.value
+}
